@@ -30,7 +30,7 @@ const conversation = [
   "STUDENT 3: That means the longest side is five since the square root of twenty five is five.",
 ].join("\n");
 
-const models = [...new Set([env.GEMINI_SCORING_MODEL, "gemini-flash-latest", "gemini-3.8-flash"].filter(Boolean))];
+const models = [...new Set([env.GEMINI_SCORING_MODEL, "gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.8-flash"].filter(Boolean))];
 
 for (const model of models) {
   console.log(`\n=== ${model} ===`);

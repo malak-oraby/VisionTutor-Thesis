@@ -166,7 +166,9 @@ async function scoreWithLlm(messages: ScoringMessage[]) {
 
   const models = Array.from(
     new Set(
-      [process.env.GEMINI_SCORING_MODEL, "gemini-flash-latest", "gemini-3.8-flash"].filter(
+      // flash-lite first: it answers in seconds, while the flash models can
+      // take minutes when Google is busy (measured 1 Nov 2026)
+      [process.env.GEMINI_SCORING_MODEL, "gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.8-flash"].filter(
         (m): m is string => Boolean(m)
       )
     )

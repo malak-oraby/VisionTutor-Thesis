@@ -5,6 +5,7 @@ export interface ISession extends Document {
   userId: mongoose.Types.ObjectId;
   sessionType: "code" | "math";
   codeLanguage?: string;
+  tutorVersion: "baseline" | "strategy" | "adaptive";
   startTime: Date;
   endTime?: Date;
   messages: {
@@ -29,6 +30,12 @@ const SessionSchema = new Schema<ISession>(
     },
     codeLanguage: {
       type: String,
+    },
+    // Which tutor version ran this session (see app/lib/tutorStrategy.ts)
+    tutorVersion: {
+      type: String,
+      enum: ["baseline", "strategy", "adaptive"],
+      default: "baseline",
     },
     startTime: {
       type: Date,

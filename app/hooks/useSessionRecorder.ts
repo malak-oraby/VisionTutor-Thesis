@@ -4,6 +4,7 @@
 // saves it to the database when it ends, and returns the assessment.
 import { useCallback, useRef, useState } from "react";
 import type { Assessment } from "../lib/assessment";
+import { getTutorVersion } from "../lib/tutorStrategy";
 
 type RecMessage = { role: "human" | "ai"; content: string; timestamp: string };
 type Status = "idle" | "recording" | "scoring" | "done" | "error";
@@ -27,7 +28,11 @@ export function useSessionRecorder(
     const res = await fetch("/api/sessions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sessionType, codeLanguage: langRef.current?.() }),
+      body: JSON.stringify({
+        sessionType,
+        codeLanguage: langRef.current?.(),
+        tutorVersion: getTutorVersion(),
+      }),
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || "Could not start the session");

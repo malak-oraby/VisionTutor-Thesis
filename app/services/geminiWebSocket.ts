@@ -1,6 +1,7 @@
 import { Base64 } from "js-base64";
 import { TranscriptionService } from "./transcriptionService";
 import { pcmToWav } from "../utils/audioUtils";
+import { buildSystemInstruction, getTutorVersion } from "../lib/tutorStrategy";
 
 // The old "gemini-2.0-flash-exp" voice model has been shut down by Google.
 // Set NEXT_PUBLIC_GEMINI_LIVE_MODEL in .env.local to try another one
@@ -106,12 +107,17 @@ export class GeminiWebSocket {
   }
 
   private sendInitialSetup() {
+    // V0 (baseline) sends no system instruction, like the original tutor
+    const instruction = buildSystemInstruction(getTutorVersion());
     const setupMessage = {
       setup: {
         model: MODEL,
         generation_config: {
           response_modalities: ["AUDIO"],
         },
+        ...(instruction && {
+          systemInstruction: { parts: [{ text: instruction }] },
+        }),
         inputAudioTranscription: {},
         outputAudioTranscription: {},
       },
