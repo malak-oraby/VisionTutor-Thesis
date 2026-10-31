@@ -41,3 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 /app_backup_before_integration/
+/scoring_model/.venv/
