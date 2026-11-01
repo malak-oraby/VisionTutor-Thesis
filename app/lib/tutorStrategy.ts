@@ -1,9 +1,10 @@
 // Teaching strategy and tutor versions used in the evaluation.
 //   V0 "baseline": the original tutor, no instructions (git tag baseline-v1)
 //   V1 "strategy": V0 + the teaching strategy below
-//   V2 "adaptive": V1 + score-aware adaptation (not built yet; behaves like V1)
+//   V2 "adaptive": V1 + score-aware adaptation (see adaptation.ts)
 // The same instructions are used by the voice tutor and the text harness,
 // so every version is tested with exactly the same wording.
+import { MODE_INSTRUCTIONS, type TutorMode } from "./adaptation";
 
 export type TutorVersion = "baseline" | "strategy" | "adaptive";
 
@@ -47,7 +48,12 @@ Follow these rules in every reply:
 6. Keep replies short: one idea and one question at a time. Encourage effort, not only correct answers.`;
 
 // System instruction for a tutor version, or undefined for the baseline (V0 has none).
-export function buildSystemInstruction(version: TutorVersion): string | undefined {
+// V2 adds the current mode's instructions; V1 ignores the mode.
+export function buildSystemInstruction(
+  version: TutorVersion,
+  mode: TutorMode = "standard"
+): string | undefined {
   if (version === "baseline") return undefined;
-  return TEACHING_STRATEGY;
+  if (version === "strategy") return TEACHING_STRATEGY;
+  return `${TEACHING_STRATEGY}\n\n${MODE_INSTRUCTIONS[mode]}`;
 }

@@ -33,6 +33,8 @@ import {
   type LearnerType,
 } from "./learners";
 import { generate, loadApiKey, type Turn } from "./gemini";
+import { chooseMode, type AdaptationDecision, type TutorMode } from "../../app/lib/adaptation";
+import { liveScore } from "../../app/lib/scoring";
 
 type Job = { version: TutorVersion; learner: LearnerType; scenario: Scenario; repeat: number; key: string };
 type Message = { role: "student" | "tutor"; text: string; at: string };
@@ -92,12 +94,14 @@ const hash = (s: string | undefined) =>
   s ? crypto.createHash("sha256").update(s).digest("hex").slice(0, 12) : null;
 
 async function runSession(job: Job) {
-  const system = buildSystemInstruction(job.version);
+  let system = buildSystemInstruction(job.version);
   const learnerSystem = learnerSystemPrompt(job.learner, job.scenario);
   const messages: Message[] = [];
   const startedAt = new Date().toISOString();
   let ended: "learner-done" | "max-turns" | "error" = "max-turns";
   let error: string | undefined;
+  let mode: TutorMode = "standard";
+  const decisions: AdaptationDecision[] = []; // V2 only
 
   try {
     for (let turn = 1; turn <= MAX_STUDENT_TURNS; turn++) {
@@ -111,6 +115,22 @@ async function runSession(job: Job) {
       if (finished) {
         ended = "learner-done";
         break;
+      }
+
+      // V2: score the conversation so far and choose the teaching mode
+      if (job.version === "adaptive") {
+        const studentCount = messages.filter((m) => m.role === "student").length;
+        const score =
+          studentCount >= 2
+            ? await liveScore(
+                messages.map((m) => ({ role: m.role === "student" ? "human" : "ai", content: m.text, timestamp: new Date(m.at) })),
+                apiKey
+              )
+            : null;
+        const decision = chooseMode(studentCount, score, mode);
+        mode = decision.mode;
+        decisions.push(decision);
+        system = buildSystemInstruction(job.version, mode);
       }
 
       const tutorTurns: Turn[] = messages.map((m) => ({ role: m.role === "student" ? "user" : "model", text: m.text }));
@@ -132,13 +152,15 @@ async function runSession(job: Job) {
     repeat: job.repeat,
     tutorModel,
     learnerModel,
-    tutorInstructionHash: hash(system), // identifies the exact strategy text used
+    tutorInstructionHash: hash(buildSystemInstruction(job.version)), // identifies the exact strategy text used
+    liveScoringModel: job.version === "adaptive" ? process.env.LIVE_SCORING_MODEL || "gemini-flash-lite-latest" : null,
     startedAt,
     finishedAt: new Date().toISOString(),
     studentTurns: messages.filter((m) => m.role === "student").length,
     ended,
     ...(error && { error }),
     messages,
+    ...(job.version === "adaptive" && { adaptation: decisions }),
   };
   fs.appendFileSync(outFile, JSON.stringify(record) + "\n");
   return record;

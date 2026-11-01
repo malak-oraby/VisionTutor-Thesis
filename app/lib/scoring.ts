@@ -194,6 +194,24 @@ async function scoreWithLlm(messages: ScoringMessage[]) {
   throw lastErr;
 }
 
+// Live score of the conversation so far, used by V2 to choose a teaching mode.
+// One fast model and one attempt: the tutor cannot wait long. Returns null on
+// failure, and the caller keeps the previous mode.
+export async function liveScore(
+  messages: ScoringMessage[],
+  key = process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY
+): Promise<{ aiProficiency: number | null; engagementDepth: number | null; model: string } | null> {
+  if (!key) return null;
+  const model = process.env.LIVE_SCORING_MODEL || "gemini-flash-lite-latest";
+  try {
+    const r = await callModel(model, key, messages);
+    return { aiProficiency: r.ai.score, engagementDepth: r.eng.score, model };
+  } catch (err: any) {
+    console.warn(`[live-score] ${model} failed:`, err?.message ?? err);
+    return null;
+  }
+}
+
 // Last-resort estimate so the demo never breaks. It only counts message
 // patterns and is much weaker than the LLM scorer; the summary says so.
 function scoreWithHeuristic(humans: ScoringMessage[]) {
