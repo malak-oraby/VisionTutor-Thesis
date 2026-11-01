@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "harness": "tsx scripts/harness/run.ts"
+    "harness": "tsx scripts/harness/run.ts",
+    "judge": "tsx scripts/harness/judge.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",

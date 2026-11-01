@@ -27,8 +27,9 @@ export async function generate(opts: {
   temperature?: number;
   timeoutMs?: number;
   attempts?: number;
+  json?: boolean;
 }): Promise<string> {
-  const { key, model, system, turns, temperature = 0.7, timeoutMs = 60000, attempts = 5 } = opts;
+  const { key, model, system, turns, temperature = 0.7, timeoutMs = 60000, attempts = 5, json = false } = opts;
   let lastErr: unknown;
   for (let attempt = 1; attempt <= attempts; attempt++) {
     const ctrl = new AbortController();
@@ -42,7 +43,7 @@ export async function generate(opts: {
           body: JSON.stringify({
             ...(system && { systemInstruction: { parts: [{ text: system }] } }),
             contents: turns.map((t) => ({ role: t.role, parts: [{ text: t.text }] })),
-            generationConfig: { temperature },
+            generationConfig: { temperature, ...(json && { responseMimeType: "application/json" }) },
           }),
           signal: ctrl.signal,
         }
