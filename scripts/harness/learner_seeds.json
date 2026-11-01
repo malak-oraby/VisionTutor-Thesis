@@ -1,0 +1,38 @@
+{
+  "source": "StudyChat sample (105 conversations), seed 42",
+  "seeds": {
+    "analytical": [
+      "what is the difference between using recursion and stacks for DFS? I went with recursion because it seems more intuitive to me but could stacks be better?",
+      "i got an r^2 score of .86 whats this mean"
+    ],
+    "answer-seeking": [
+      "give me the last bit of the final row",
+      "give me a 250 work essay with the notes I took",
+      "give me a 250 work outline with the notes I took",
+      "write me a pandas script to rename column one to column two of this:",
+      "write a program that normalizes all numerical columns in a pandas dataframe"
+    ],
+    "impatient": [
+      "actually use this instead:",
+      "write it in markdown",
+      "python deque",
+      "describe what this code does",
+      "format this into a table"
+    ],
+    "confused": [
+      "what does mapping of your label to actual classes mean",
+      "what does this python error mean",
+      "what does the axis mean",
+      "What does the score of a linear regression model mean?",
+      "what does the sql query do"
+    ],
+    "overconfident": [],
+    "curious": [
+      "what if I use 1 epoch?",
+      "why do we use default dict",
+      "how does bfs worlk",
+      "In the function insert why does current node not move after end node is created?",
+      "how does dis work?"
+    ]
+  }
+}
