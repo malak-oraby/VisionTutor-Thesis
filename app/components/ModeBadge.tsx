@@ -26,7 +26,7 @@ export default function ModeBadge({ mode, mean }: { mode: TutorMode; mean: numbe
   return (
     <span
       title={s.tip}
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${s.className}`}
+      className={`inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-2 py-0.5 text-xs font-medium ${s.className}`}
     >
       Mode: {s.label}
       {mean !== null && <span className="opacity-70">· score {mean.toFixed(1)}/4</span>}
