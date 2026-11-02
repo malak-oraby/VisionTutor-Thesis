@@ -49,6 +49,7 @@ export async function POST(
     const endTime = new Date();
     session.messages = messages as any;
     session.endTime = endTime;
+    if (Array.isArray(body?.adaptation)) session.adaptation = body.adaptation.slice(0, MAX_MESSAGES);
 
     const assessment = await scoreSession(messages, session.startTime, endTime);
     session.assessment = assessment;

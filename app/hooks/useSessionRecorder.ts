@@ -62,8 +62,12 @@ export function useSessionRecorder(
     messagesRef.current.push({ role, content: text, timestamp: new Date().toISOString() });
   }, []);
 
+  // Messages recorded so far (used by the adaptive tutor, V2).
+  const getMessages = useCallback(() => [...messagesRef.current], []);
+
   // Called when the tutoring session ends. Saves, scores, and shows the result.
-  const finish = useCallback(async () => {
+  // `adaptation` is the V2 decision log, saved with the session.
+  const finish = useCallback(async (adaptation?: unknown[]) => {
     if (!activeRef.current) return;
     activeRef.current = false;
     setStatus("scoring");
@@ -74,7 +78,7 @@ export function useSessionRecorder(
       const res = await fetch(`/api/sessions/${idRef.current}/finish`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: messagesRef.current }),
+        body: JSON.stringify({ messages: messagesRef.current, adaptation }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not score the session");
@@ -89,5 +93,5 @@ export function useSessionRecorder(
 
   const dismiss = useCallback(() => setStatus("idle"), []);
 
-  return { status, assessment, error, begin, record, finish, dismiss };
+  return { status, assessment, error, begin, record, finish, dismiss, getMessages };
 }

@@ -14,6 +14,8 @@ interface AudioInterfaceProps {
   captureContentCallback: () => string;
   contentType: "code" | "math";
   onSessionStateChange?: (isActive: boolean) => void;
+  // V2: a new note (new id) is sent to the live tutor once
+  systemNote?: { id: number; text: string } | null;
 }
 
 export default function AudioInterface({
@@ -22,7 +24,14 @@ export default function AudioInterface({
   captureContentCallback,
   contentType,
   onSessionStateChange,
+  systemNote,
 }: AudioInterfaceProps) {
+  const sentNoteIdRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (!systemNote || systemNote.id === sentNoteIdRef.current) return;
+    sentNoteIdRef.current = systemNote.id;
+    geminiWsRef.current?.sendSystemNote(systemNote.text);
+  }, [systemNote]);
   const audioContextRef = useRef<AudioContext | null>(null);
   const [isListening, setIsListening] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);

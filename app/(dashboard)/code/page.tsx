@@ -6,6 +6,8 @@ import AudioInterface from "@/app/components/AudioInterface";
 import ConversationLog from "@/app/components/ConversationLog";
 import SessionSummary from "@/app/components/SessionSummary";
 import { useSessionRecorder } from "@/app/hooks/useSessionRecorder";
+import { useAdaptiveTutor } from "@/app/hooks/useAdaptiveTutor";
+import ModeBadge from "@/app/components/ModeBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -44,6 +46,7 @@ export default function CodePage() {
   const [isFullscreenEditor, setIsFullscreenEditor] = useState(false);
   const [chatPanelVisible, setChatPanelVisible] = useState(true);
   const recorder = useSessionRecorder("code", () => language);
+  const adaptive = useAdaptiveTutor();
   const summaryOpen =
     recorder.status === "scoring" || recorder.status === "done" || recorder.status === "error";
 
@@ -73,13 +76,16 @@ export default function CodePage() {
   const handleUserTranscription = (text: string) => {
     setMessages((prev) => [...prev, { role: "human", content: text }]);
     recorder.record("human", text);
+    void adaptive.onStudentMessage(recorder.getMessages());
   };
 
   // Start/stop of the voice session: save and score when it ends
   const handleAudioSessionChange = (active: boolean) => {
     setIsSessionActive(active);
-    if (active) void recorder.begin();
-    else void recorder.finish();
+    if (active) {
+      adaptive.reset();
+      void recorder.begin();
+    } else void recorder.finish(adaptive.enabled ? adaptive.getDecisions() : undefined);
   };
 
   const captureContent = () => {
@@ -327,6 +333,7 @@ export default function CodePage() {
               captureContentCallback={captureContent}
               contentType="code"
               onSessionStateChange={handleAudioSessionChange}
+              systemNote={adaptive.note}
             />
           </div>
         </div>
@@ -346,6 +353,7 @@ export default function CodePage() {
                     <CardTitle className="text-lg font-semibold text-white">
                       AI Tutor Conversation
                     </CardTitle>
+                    {adaptive.enabled && <ModeBadge mode={adaptive.mode} mean={adaptive.mean} />}
                   </div>
                   <div className="flex items-center gap-2">
                     <Button

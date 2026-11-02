@@ -14,6 +14,7 @@ export interface ISession extends Document {
     timestamp: Date;
   }[];
   assessment?: any;
+  adaptation?: any[];
 }
 
 const SessionSchema = new Schema<ISession>(
@@ -64,6 +65,11 @@ const SessionSchema = new Schema<ISession>(
     // Result of scoring the finished session (see app/lib/scoring.ts)
     assessment: {
       type: Schema.Types.Mixed,
+    },
+    // V2 decision log: live score and chosen mode after each student message
+    adaptation: {
+      type: [Schema.Types.Mixed],
+      default: undefined,
     },
   },
   { timestamps: true }

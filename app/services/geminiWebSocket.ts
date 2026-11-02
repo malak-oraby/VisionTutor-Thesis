@@ -125,6 +125,21 @@ export class GeminiWebSocket {
     this.ws?.send(JSON.stringify(setupMessage));
   }
 
+  // V2: tells the tutor about a mode change during the session. Sent as a
+  // text turn that is not complete, so the tutor applies it to its next reply
+  // instead of answering it.
+  sendSystemNote(text: string) {
+    if (!this.isConnected || !this.ws || !this.isSetupComplete) return;
+    this.ws.send(
+      JSON.stringify({
+        clientContent: {
+          turns: [{ role: "user", parts: [{ text }] }],
+          turnComplete: false,
+        },
+      })
+    );
+  }
+
   sendMediaChunk(b64Data: string, mimeType: string) {
     if (!this.isConnected || !this.ws || !this.isSetupComplete) return;
 
