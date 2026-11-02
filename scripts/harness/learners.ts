@@ -68,7 +68,10 @@ ${
     : ""
 }
 
-When you have the final answer and the tutor has confirmed it, or you want to give up, write your last message and end it with ${DONE_TOKEN}`;
+Ending the conversation: add ${DONE_TOKEN} at the end of your message ONLY in one of these two cases:
+- the tutor has already confirmed that your final answer is correct, or
+- you clearly say that you give up (for example "forget it, i'll ask someone else").
+Never add ${DONE_TOKEN} to a message that asks the tutor a question or proposes an answer that the tutor has not confirmed yet.`;
 }
 
 // The student's first message, which also tells the tutor the problem.

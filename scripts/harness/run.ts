@@ -109,7 +109,8 @@ async function runSession(job: Job) {
       const learnerTurns: Turn[] = [{ role: "user", text: learnerOpeningInstruction() }];
       for (const m of messages) learnerTurns.push({ role: m.role === "student" ? "model" : "user", text: m.text });
       let studentText = await generate({ key: apiKey, model: learnerModel, system: learnerSystem, turns: learnerTurns, temperature: 0.9 });
-      const finished = studentText.includes(DONE_TOKEN);
+      // A message that still asks something is not an ending, even if the learner model added the token
+      const finished = studentText.includes(DONE_TOKEN) && !studentText.replace(DONE_TOKEN, "").trim().endsWith("?");
       studentText = studentText.replace(DONE_TOKEN, "").trim();
       if (studentText) messages.push({ role: "student", text: studentText, at: new Date().toISOString() });
       if (finished) {
