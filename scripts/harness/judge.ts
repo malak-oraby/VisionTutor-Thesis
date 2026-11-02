@@ -5,7 +5,9 @@
 // analyze.ts, so the rules stay visible in code.
 //
 //   npm run judge -- --run pilot
-// Options: --concurrency N (default 3). Model: JUDGE_MODEL (default gemini-3.8-flash).
+// Options: --concurrency N (default 3). Model: JUDGE_MODEL (default gemma-4-31b-it: a different model family from the V2
+// live scorer, and a much higher free-tier daily limit than gemini-3.8-flash,
+// which allows only 20 requests per day).
 // Writes results/harness/NAME/judged.jsonl; already judged sessions are skipped.
 //
 // JUDGE_PROMPT is fixed before the first experiment run (protocol rule).
@@ -48,6 +50,18 @@ function arg(name: string): string | undefined {
   return i >= 0 ? process.argv[i + 1] : undefined;
 }
 
+// Some models (e.g. Gemma) write notes before the JSON; keep only the object.
+function extractJson(reply: string): any {
+  const text = reply.replace(/```json|```/g, "");
+  const start = text.indexOf('{"student"') >= 0 ? text.indexOf('{"student"') : text.indexOf("{");
+  const end = text.lastIndexOf("}");
+  if (start < 0 || end <= start) throw new Error(`No JSON in reply: ${text.slice(0, 80)}`);
+  const labels = JSON.parse(text.slice(start, end + 1));
+  if (!Array.isArray(labels.student) || !Array.isArray(labels.tutor) || !labels.session)
+    throw new Error("Reply JSON is missing student, tutor or session");
+  return labels;
+}
+
 function transcript(messages: { role: string; text: string }[]) {
   let s = 0;
   let t = 0;
@@ -59,7 +73,7 @@ function transcript(messages: { role: string; text: string }[]) {
 async function main() {
   const runName = arg("run") ?? "pilot";
   const concurrency = Number(arg("concurrency") ?? 3);
-  const model = process.env.JUDGE_MODEL || "gemini-3.8-flash";
+  const model = process.env.JUDGE_MODEL || "gemma-4-31b-it";
   const dir = path.join("results", "harness", runName);
   const inFile = path.join(dir, "sessions.jsonl");
   const outFile = path.join(dir, "judged.jsonl");
@@ -99,7 +113,7 @@ async function main() {
       let error: string | undefined;
       try {
         const reply = await generate({ key, model, system: JUDGE_PROMPT, turns: [{ role: "user", text }], temperature: 0, json: true, timeoutMs: 300000 });
-        labels = JSON.parse(reply.replace(/```json|```/g, "").trim());
+        labels = extractJson(reply);
       } catch (err: any) {
         error = String(err?.message ?? err).slice(0, 300);
       }
