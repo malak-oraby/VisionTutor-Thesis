@@ -55,7 +55,9 @@ export async function generate(opts: {
         throw err;
       }
       const data = await res.json();
+      // skip "thought" parts: some models (e.g. Gemma) return their reasoning separately
       const text = (data?.candidates?.[0]?.content?.parts ?? [])
+        .filter((p: any) => !p?.thought)
         .map((p: any) => p?.text ?? "")
         .join("")
         .trim();

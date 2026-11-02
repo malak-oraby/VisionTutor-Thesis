@@ -53,7 +53,8 @@ function arg(name: string): string | undefined {
 // Some models (e.g. Gemma) write notes before the JSON; keep only the object.
 function extractJson(reply: string): any {
   const text = reply.replace(/```json|```/g, "");
-  const start = text.indexOf('{"student"') >= 0 ? text.indexOf('{"student"') : text.indexOf("{");
+  const m = /\{\s*"student"/.exec(text);
+  const start = m ? m.index : text.indexOf("{");
   const end = text.lastIndexOf("}");
   if (start < 0 || end <= start) throw new Error(`No JSON in reply: ${text.slice(0, 80)}`);
   const labels = JSON.parse(text.slice(start, end + 1));
