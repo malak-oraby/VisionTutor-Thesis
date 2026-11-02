@@ -66,8 +66,9 @@ export async function generate(opts: {
       const status = err?.status as number | undefined;
       if (status !== undefined && status !== 429 && status < 500) throw err; // not temporary
       // back off longer on rate limits (free tier allows few requests per minute)
-      const wait = (status === 429 ? 15000 : 3000) * attempt;
-      console.warn(`  [retry ${attempt}/${attempts}] ${err?.message ?? err} - waiting ${wait / 1000}s`);
+      const wait = (status === 429 ? 15000 : 5000) * attempt;
+      const short = status ? `HTTP ${status} (Google busy or limit reached)` : String(err?.message ?? err).slice(0, 80);
+      console.warn(`  [retry ${attempt}/${attempts}] ${short} - waiting ${wait / 1000}s`);
       await sleep(wait);
     } finally {
       clearTimeout(timer);

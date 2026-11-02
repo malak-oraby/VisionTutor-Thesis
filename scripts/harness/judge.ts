@@ -111,11 +111,15 @@ async function main() {
       const text = `PROBLEM: ${scenario.problem}\nCORRECT ANSWER: ${scenario.answer}\n\nCONVERSATION:\n${transcript(r.messages)}`;
       let labels: any = null;
       let error: string | undefined;
-      try {
-        const reply = await generate({ key, model, system: JUDGE_PROMPT, turns: [{ role: "user", text }], temperature: 0, json: true, timeoutMs: 300000 });
-        labels = extractJson(reply);
-      } catch (err: any) {
-        error = String(err?.message ?? err).slice(0, 300);
+      // a malformed reply is asked for again (up to 3 tries); server errors retry inside generate()
+      for (let tryNo = 1; tryNo <= 3 && !labels; tryNo++) {
+        try {
+          const reply = await generate({ key, model, system: JUDGE_PROMPT, turns: [{ role: "user", text }], temperature: 0, json: true, timeoutMs: 300000, attempts: 8 });
+          labels = extractJson(reply);
+        } catch (err: any) {
+          error = String(err?.message ?? err).replace(/\s+/g, " ").slice(0, 160);
+          if (err?.status !== undefined) break; // generate() already retried server errors
+        }
       }
       if (labels) {
         fs.appendFileSync(outFile, JSON.stringify({ key: r.key, judgeModel: model, judgePromptHash: JUDGE_PROMPT_HASH, judgedAt: new Date().toISOString(), labels }) + "\n");
