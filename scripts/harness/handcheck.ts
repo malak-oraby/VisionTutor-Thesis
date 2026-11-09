@@ -1,14 +1,16 @@
 // Human check of the judge: a person labels a sample of messages blind,
 // then their labels are compared with the judge's.
 //
-//   npm run handcheck -- make --run pilot2 [--student 10 --tutor 10]
-//     Writes results/handcheck/<run>/handcheck.html. Open it in a browser,
-//     label every item, click "Download my labels" (handcheck_labels_<run>.json).
-//   npm run handcheck -- score --run pilot2 --labels ~/Downloads/handcheck_labels_pilot2.json
-//     Writes results/handcheck/<run>/agreement.md.
+//   npm run handcheck -- make --run pilot2 [--name NAME --seed 42 --student 10 --tutor 10]
+//     Writes results/handcheck/<name>/handcheck.html (name defaults to the run).
+//     Open it in a browser, label every item, click "Download my labels"
+//     (handcheck_labels_<name>.json).
+//   npm run handcheck -- score --run pilot2 [--name NAME] --labels ~/Downloads/handcheck_labels_<name>.json
+//     Writes results/handcheck/<name>/agreement.md.
 //
 // Sample: each item is one message from a different session (seed 42),
-// spread over the three versions. The page never shows the tutor version
+// spread over the three versions, skipping sessions already used in an
+// earlier hand-check round. The page never shows the tutor version
 // or the judge's labels.
 import fs from "node:fs";
 import path from "node:path";
@@ -35,6 +37,7 @@ const readJsonl = (file: string) =>
 
 type Item = {
   id: number;
+  run: string;
   key: string;
   role: "student" | "tutor";
   n: number; // message number within its role, as the judge numbers it
@@ -46,12 +49,25 @@ type Item = {
 const STUDENT_FIELDS = ["attempt", "reasoning", "answerRequest"] as const;
 const TUTOR_FIELDS = ["hintLevel", "revealsFinalAnswer", "falsePraise"] as const;
 
-function makeItems(run: string, nStudent: number, nTutor: number): Item[] {
-  const dir = path.join("results", "harness", run);
-  const sessions = new Map(readJsonl(path.join(dir, "sessions.jsonl")).map((s) => [s.key, s]));
-  const judged = readJsonl(path.join(dir, "judged.jsonl")).filter((j) => j.labels && sessions.has(j.key));
-  const rand = rng(42);
-  const shuffled = [...judged].sort((a, b) => a.key.localeCompare(b.key));
+// runs: one run name or several separated by commas (e.g. "pilot2,pilot")
+function makeItems(runs: string, nStudent: number, nTutor: number, seed: number, name: string): Item[] {
+  const sessions = new Map<string, any>();
+  const all: any[] = [];
+  for (const run of runs.split(",")) {
+    const dir = path.join("results", "harness", run);
+    for (const s of readJsonl(path.join(dir, "sessions.jsonl"))) sessions.set(`${run}/${s.key}`, s);
+    for (const j of readJsonl(path.join(dir, "judged.jsonl"))) all.push({ ...j, run, id: `${run}/${j.key}` });
+  }
+  const root = path.join("results", "handcheck");
+  const used = new Set<string>();
+  for (const d of fs.existsSync(root) ? fs.readdirSync(root) : []) {
+    const f = path.join(root, d, "items.json");
+    if (d !== name && fs.existsSync(f))
+      for (const it of JSON.parse(fs.readFileSync(f, "utf8"))) used.add(`${it.run ?? d}/${it.key}`);
+  }
+  const judged = all.filter((j) => j.labels && sessions.has(j.id) && !used.has(j.id));
+  const rand = rng(seed);
+  const shuffled = [...judged].sort((a, b) => a.id.localeCompare(b.id));
   for (let i = shuffled.length - 1; i > 0; i--) {
     const k = Math.floor(rand() * (i + 1));
     [shuffled[i], shuffled[k]] = [shuffled[k], shuffled[i]];
@@ -72,13 +88,14 @@ function makeItems(run: string, nStudent: number, nTutor: number): Item[] {
   for (const j of order) {
     if (!want.student && !want.tutor) break;
     const role = want[next] ? next : next === "tutor" ? "student" : "tutor";
-    const s = sessions.get(j.key);
+    const s = sessions.get(j.id);
     const idx = s.messages.map((m: any, i: number) => (m.role === role ? i : -1)).filter((i: number) => i >= 0);
     if (!idx.length) continue;
     const pick = Math.floor(rand() * idx.length);
     const scenario = SCENARIOS.find((x) => x.id === s.scenario)!;
     items.push({
       id: items.length + 1,
+      run: j.run,
       key: j.key,
       role,
       n: pick + 1,
@@ -92,7 +109,7 @@ function makeItems(run: string, nStudent: number, nTutor: number): Item[] {
   return items;
 }
 
-function page(items: Item[], run: string): string {
+function page(items: Item[], name: string): string {
   // the page only gets what a human labeler needs: no key, no version
   const data = items.map(({ id, role, problem, answer, context }) => ({ id, role, problem, answer, context }));
   return `<!doctype html>
@@ -131,7 +148,7 @@ details{margin:6px 0}
 </main>
 <script>
 const ITEMS = ${JSON.stringify(data)};
-const KEY = "handcheck-labels-${run}";
+const KEY = "handcheck-labels-${name}";
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch {}
 const Q = {
@@ -169,7 +186,7 @@ document.getElementById("dl").onclick = () => {
   document.getElementById("msg").textContent = done < ITEMS.length ? "Some items are not finished yet; downloading anyway." : "";
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([JSON.stringify(saved, null, 1)], { type: "application/json" }));
-  a.download = "handcheck_labels_${run}.json";
+  a.download = "handcheck_labels_${name}.json";
   a.click();
 };
 progress();
@@ -193,11 +210,13 @@ function kappa(pairs: [number, number][], cats: number[], weights: "nominal" | "
   return exp === 0 ? NaN : 1 - obs / exp;
 }
 
-function score(run: string, labelsFile: string) {
-  const dir = path.join("results", "handcheck", run);
+function score(run: string, name: string, labelsFile: string) {
+  const dir = path.join("results", "handcheck", name);
   const items: Item[] = JSON.parse(fs.readFileSync(path.join(dir, "items.json"), "utf8"));
   const human = JSON.parse(fs.readFileSync(labelsFile, "utf8"));
-  const judged = new Map(readJsonl(path.join("results", "harness", run, "judged.jsonl")).map((j) => [j.key, j.labels]));
+  const judged = new Map<string, any>();
+  for (const r of new Set(items.map((it) => it.run ?? run)))
+    for (const j of readJsonl(path.join("results", "harness", r, "judged.jsonl"))) judged.set(`${r}/${j.key}`, j.labels);
   const toNum = (v: unknown) => (v === "yes" || v === true ? 1 : v === "no" || v === false ? 0 : Number(v));
 
   const lines = [`# Judge vs. human: run "${run}"`, "", `Items: ${items.length}. Labels file: ${path.basename(labelsFile)}.`, "",
@@ -208,7 +227,7 @@ function score(run: string, labelsFile: string) {
       const pairs: [number, number][] = [];
       for (const it of items.filter((x) => x.role === role)) {
         const h = human[it.id]?.[f];
-        const j = judged.get(it.key)?.[role]?.find((m: any) => m.n === it.n)?.[f];
+        const j = judged.get(`${it.run ?? run}/${it.key}`)?.[role]?.find((m: any) => m.n === it.n)?.[f];
         if (h === undefined || j === undefined) continue;
         pairs.push([toNum(h), toNum(j)]);
         if (toNum(h) !== toNum(j)) rows.push(`| ${it.id} | ${role} | ${f} | ${h} | ${j} |`);
@@ -231,18 +250,19 @@ function score(run: string, labelsFile: string) {
 
 const mode = process.argv[2];
 const run = arg("run") ?? "pilot2";
+const name = arg("name") ?? run;
 if (mode === "make") {
-  const items = makeItems(run, Number(arg("student") ?? 10), Number(arg("tutor") ?? 10));
-  const dir = path.join("results", "handcheck", run);
+  const items = makeItems(run, Number(arg("student") ?? 10), Number(arg("tutor") ?? 10), Number(arg("seed") ?? 42), name);
+  const dir = path.join("results", "handcheck", name);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "items.json"), JSON.stringify(items, null, 1));
-  fs.writeFileSync(path.join(dir, "handcheck.html"), page(items, run));
+  fs.writeFileSync(path.join(dir, "handcheck.html"), page(items, name));
   console.log(`${items.length} items (${items.filter((i) => i.role === "student").length} student, ${items.filter((i) => i.role === "tutor").length} tutor) from run "${run}".`);
   console.log(`Open ${path.join(dir, "handcheck.html")} in your browser.`);
 } else if (mode === "score") {
   const file = arg("labels");
   if (!file) throw new Error("Give --labels path/to/handcheck_labels.json");
-  score(run, file.replace(/^~/, process.env.HOME ?? "~"));
+  score(run, name, file.replace(/^~/, process.env.HOME ?? "~"));
 } else {
   console.log("Use: npm run handcheck -- make --run pilot2   or   npm run handcheck -- score --run pilot2 --labels FILE");
 }
