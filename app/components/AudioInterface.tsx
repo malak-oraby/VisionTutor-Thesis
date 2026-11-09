@@ -387,7 +387,7 @@ export default function AudioInterface({
         {isSessionActive && (
           <div className="w-full h-1 rounded-full bg-zinc-200">
             <div
-              className="h-full rounded-full transition-all bg-coral-500 "
+              className="h-full rounded-full transition-all bg-brand-500 "
               style={{
                 width: `${
                   isModelSpeaking

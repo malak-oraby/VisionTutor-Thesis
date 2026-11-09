@@ -58,8 +58,8 @@ export default function ConversationLog({ messages }: ConversationLogProps) {
                 <div
                   className={`rounded-lg px-3 py-2 text-sm ${
                     message.role === "ai"
-                      ? "bg-vt-raised border-l-2 border-coral-500 text-zinc-100"
-                      : "bg-coral-500/15 border border-coral-500/30 text-zinc-100"
+                      ? "bg-vt-raised border-l-2 border-brand-500 text-zinc-100"
+                      : "bg-brand-500/15 border border-brand-500/30 text-zinc-100"
                   }`}
                 >
                   {message.content}

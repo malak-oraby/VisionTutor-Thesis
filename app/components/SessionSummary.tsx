@@ -26,7 +26,7 @@ function Row({ label, item }: { label: string; item: ComponentScore }) {
       </div>
       <div className="h-2 w-full rounded bg-white/10">
         <div
-          className="h-2 rounded bg-coral-500"
+          className="h-2 rounded bg-brand-500"
           style={{ width: na ? "0%" : `${((item.score as number) / 4) * 100}%` }}
         />
       </div>
@@ -53,7 +53,7 @@ export default function SessionSummary({ status, assessment, error, onClose }: P
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
       <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-xl border border-white/10 bg-vt-panel text-zinc-100 shadow-2xl">
-        <div className="flex items-center justify-between bg-coral-600 px-5 py-3">
+        <div className="flex items-center justify-between bg-brand-600 px-5 py-3">
           <h2 className="text-base font-semibold">Session Assessment Summary</h2>
           <button onClick={onClose} className="text-xl leading-none" aria-label="Close">
             ×
@@ -63,7 +63,7 @@ export default function SessionSummary({ status, assessment, error, onClose }: P
         <div className="space-y-5 p-5">
           {status === "scoring" && (
             <div className="flex flex-col items-center gap-3 py-10">
-              <div className="h-10 w-10 animate-spin rounded-full border-4 border-coral-500 border-t-transparent" />
+              <div className="h-10 w-10 animate-spin rounded-full border-4 border-brand-500 border-t-transparent" />
               <p className="text-sm text-zinc-300">Scoring your session...</p>
             </div>
           )}
@@ -81,7 +81,7 @@ export default function SessionSummary({ status, assessment, error, onClose }: P
                   <div className="text-lg font-semibold">Not scored</div>
                 ) : (
                   <>
-                    <div className="text-4xl font-bold text-coral-400">
+                    <div className="text-4xl font-bold text-brand-400">
                       {assessment.overall.toFixed(1)}
                       <span className="text-lg text-zinc-400">/4</span>
                     </div>
@@ -106,7 +106,7 @@ export default function SessionSummary({ status, assessment, error, onClose }: P
                 <List title="Strengths" items={assessment.strengths} tone="border-green-500/40 bg-green-500/10 text-green-200" />
                 <List title="Areas to improve" items={assessment.improvements} tone="border-amber-500/40 bg-amber-500/10 text-amber-200" />
               </div>
-              <List title="Recommended next steps" items={assessment.nextSteps} tone="border-coral-500/40 bg-coral-500/10 text-coral-200" />
+              <List title="Recommended next steps" items={assessment.nextSteps} tone="border-brand-500/40 bg-brand-500/10 text-brand-200" />
 
               <p className="border-t border-white/10 pt-3 text-xs text-zinc-500">
                 Scoring rubric v{assessment.rubricVersion} - scorer: {assessment.scorer}. {assessment.scorerNote}
@@ -116,7 +116,7 @@ export default function SessionSummary({ status, assessment, error, onClose }: P
 
           <button
             onClick={onClose}
-            className="w-full rounded-md bg-coral-600 py-2 text-sm font-medium hover:bg-coral-500"
+            className="w-full rounded-md bg-brand-600 py-2 text-sm font-medium hover:bg-brand-500"
           >
             Close
           </button>

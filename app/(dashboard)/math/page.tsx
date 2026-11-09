@@ -108,9 +108,9 @@ export default function MathPage() {
             <CardHeader className=" flex-shrink-0 border-b border-vt-line bg-vt-header">
               <div className="flex justify-between items-center p-0">
                 <div className="flex items-center space-x-2">
-                  <Brush className="h-5 w-5 text-coral-400" />
+                  <Brush className="h-5 w-5 text-brand-400" />
                   <CardTitle className="text-lg font-semibold text-white">
-                    Vision Math
+                    VisionTutor | Mathematics
                   </CardTitle>
                 </div>
                 <div className="flex gap-2 items-center">
@@ -118,7 +118,7 @@ export default function MathPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-coral-500 hover:text-white"
+                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-brand-500 hover:text-white"
                   >
                     <Link href="/" className="flex items-center">
                       <span className="text-zinc-300">Back to Home</span>
@@ -172,7 +172,7 @@ export default function MathPage() {
               <CardHeader className="py-2 px-3 flex-shrink-0 border-b border-vt-line bg-vt-header">
                 <div className="flex justify-between items-center w-full">
                   <div className="flex items-center space-x-2">
-                    <MessageSquare className="h-5 w-5 text-coral-400" />
+                    <MessageSquare className="h-5 w-5 text-brand-400" />
                     <CardTitle className="text-lg font-semibold text-white">
                       AI Tutor Conversation
                     </CardTitle>
@@ -191,7 +191,7 @@ export default function MathPage() {
                           },
                         ])
                       }
-                      className="border-zinc-600 text-sm text-zinc-200 hover:border-coral-500 hover:bg-vt-raised hover:text-white"
+                      className="border-zinc-600 text-sm text-zinc-200 hover:border-brand-500 hover:bg-vt-raised hover:text-white"
                     >
                       Clear Chat
                     </Button>

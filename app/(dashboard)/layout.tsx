@@ -24,9 +24,9 @@ export default function DashboardLayout({
   if (loading || !user) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-vt-bg">
-        <div className="animate-pulse text-coral-400">
+        <div className="animate-pulse text-brand-400">
           <div className="flex items-center justify-center flex-col">
-            <div className="w-12 h-12 border-4 border-coral-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <div className="w-12 h-12 border-4 border-brand-500 border-t-transparent rounded-full animate-spin mb-4"></div>
             <div className="text-lg font-medium text-zinc-200">Loading...</div>
           </div>
         </div>

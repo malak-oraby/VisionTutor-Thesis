@@ -164,19 +164,19 @@ export default function HomePage() {
             <div className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 space-x-10">
               <a
                 href="#home"
-                className="text-white hover:text-coral-400 transition text-lg font-medium"
+                className="text-white hover:text-brand-400 transition text-lg font-medium"
               >
                 Home
               </a>
               <a
                 href="#use-case"
-                className="text-white hover:text-coral-400 transition text-lg font-medium"
+                className="text-white hover:text-brand-400 transition text-lg font-medium"
               >
                 Use Cases
               </a>
               <a
                 href="#about"
-                className="text-white hover:text-coral-400 transition text-lg font-medium"
+                className="text-white hover:text-brand-400 transition text-lg font-medium"
               >
                 About
               </a>
@@ -185,14 +185,14 @@ export default function HomePage() {
             {/* Right Side - Auth Buttons */}
             <div className="hidden md:flex items-center space-x-4">
               {loading ? (
-                <div className="w-8 h-8 border-2 border-coral-500 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-8 h-8 border-2 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
               ) : isLoggedIn ? (
                 <div className="relative">
                   <button
                     onClick={toggleProfile}
                     className="flex items-center space-x-2 focus:outline-none"
                   >
-                    <div className="w-10 h-10 rounded-full bg-coral-500 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-brand-500 flex items-center justify-center">
                       <span className="text-white font-semibold">
                         {getUserInitials()}
                       </span>
@@ -231,7 +231,7 @@ export default function HomePage() {
                 <div className="flex space-x-4">
                   <button
                     onClick={handleLogin}
-                    className="px-6 py-2 rounded-full text-white hover:text-coral-300 transition text-lg font-medium"
+                    className="px-6 py-2 rounded-full text-white hover:text-brand-300 transition text-lg font-medium"
                   >
                     Log In
                   </button>
@@ -263,25 +263,25 @@ export default function HomePage() {
             <div className="flex flex-col space-y-4">
               <a
                 href="#home"
-                className="text-white hover:text-coral-400 transition py-2 text-lg"
+                className="text-white hover:text-brand-400 transition py-2 text-lg"
               >
                 Home
               </a>
               <a
                 href="#use-case"
-                className="text-white hover:text-coral-400 transition py-2 text-lg"
+                className="text-white hover:text-brand-400 transition py-2 text-lg"
               >
                 Use Cases
               </a>
               <a
                 href="#about"
-                className="text-white hover:text-coral-400 transition py-2 text-lg"
+                className="text-white hover:text-brand-400 transition py-2 text-lg"
               >
                 About
               </a>
 
               {loading ? (
-                <div className="w-6 h-6 border-2 border-coral-500 border-t-transparent rounded-full animate-spin self-center my-2"></div>
+                <div className="w-6 h-6 border-2 border-brand-500 border-t-transparent rounded-full animate-spin self-center my-2"></div>
               ) : isLoggedIn ? (
                 <>
                   {user && (
@@ -296,14 +296,14 @@ export default function HomePage() {
                   )}
                   <Link
                     href="/dashboard"
-                    className="text-white hover:text-coral-400 transition py-2 flex items-center text-lg"
+                    className="text-white hover:text-brand-400 transition py-2 flex items-center text-lg"
                   >
                     <User size={18} className="mr-2" />
                     Dashboard
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="text-left text-white hover:text-coral-400 transition py-2 flex items-center text-lg"
+                    className="text-left text-white hover:text-brand-400 transition py-2 flex items-center text-lg"
                   >
                     <LogOut size={18} className="mr-2" />
                     Logout
@@ -313,7 +313,7 @@ export default function HomePage() {
                 <div className="flex flex-col space-y-3 border-t border-zinc-700 pt-4 mt-2">
                   <button
                     onClick={handleLogin}
-                    className="px-6 py-2 text-white hover:text-coral-300 transition text-lg font-medium"
+                    className="px-6 py-2 text-white hover:text-brand-300 transition text-lg font-medium"
                   >
                     Log In
                   </button>
@@ -360,7 +360,7 @@ export default function HomePage() {
         </div>
 
         {/* Darker overlay gradient with shadow effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-coral-900/50 to-coral-900/50 z-10 shadow-inner"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/50 to-brand-900/50 z-10 shadow-inner"></div>
 
         {/* Corner shadows */}
         <div className="absolute inset-0 shadow-[inset_0_0_150px_100px_rgba(0,0,0,0.7)] z-10"></div>
@@ -369,8 +369,8 @@ export default function HomePage() {
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-4xl mx-auto text-center">
             {/* Funding badge */}
-            <div className="inline-block px-4 py-2 bg-coral-900/50 rounded-full mb-6 backdrop-blur-sm border border-coral-700/30">
-              <p className="text-coral-300 font-medium">Levelling up</p>
+            <div className="inline-block px-4 py-2 bg-brand-900/50 rounded-full mb-6 backdrop-blur-sm border border-brand-700/30">
+              <p className="text-brand-300 font-medium">Levelling up</p>
             </div>
 
             {/* Main heading with animated text - increased font size */}
@@ -460,8 +460,8 @@ export default function HomePage() {
                 description:
                   "Get real-time assistance as you code with intelligent suggestions, error detection, and guided learning paths tailored to your skill level.",
                 image: "/codeeditor.png",
-                iconColor: "text-coral-400",
-                bgColor: "bg-coral-600/20",
+                iconColor: "text-brand-400",
+                bgColor: "bg-brand-600/20",
                 link: "/code",
                 linkText: "Try Code Editor",
               },
@@ -470,8 +470,8 @@ export default function HomePage() {
                 description:
                   "Solve complex mathematical problems with our AI-powered canvas that recognizes handwritten equations and provides step-by-step solutions.",
                 image: "/canvas.png",
-                iconColor: "text-coral-400",
-                bgColor: "bg-coral-600/20",
+                iconColor: "text-brand-400",
+                bgColor: "bg-brand-600/20",
                 link: "/math",
                 linkText: "Try Math Canvas",
               },
@@ -585,7 +585,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-5 gap-8 mb-16">
             <div className="md:col-span-2">
-              <div className="text-3xl font-bold text-coral-400 mb-4">
+              <div className="text-3xl font-bold text-brand-400 mb-4">
                 VisionTutor
               </div>
               <p className="text-zinc-400 mb-6 max-w-md">
@@ -593,7 +593,7 @@ export default function HomePage() {
                 style and helps you master coding and mathematics.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-zinc-400 hover:text-coral-400">
+                <a href="#" className="text-zinc-400 hover:text-brand-400">
                   <svg
                     className="w-6 h-6"
                     fill="currentColor"
@@ -607,7 +607,7 @@ export default function HomePage() {
                     />
                   </svg>
                 </a>
-                <a href="#" className="text-zinc-400 hover:text-coral-400">
+                <a href="#" className="text-zinc-400 hover:text-brand-400">
                   <svg
                     className="w-6 h-6"
                     fill="currentColor"
@@ -617,7 +617,7 @@ export default function HomePage() {
                     <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                   </svg>
                 </a>
-                <a href="#" className="text-zinc-400 hover:text-coral-400">
+                <a href="#" className="text-zinc-400 hover:text-brand-400">
                   <svg
                     className="w-6 h-6"
                     fill="currentColor"
@@ -638,22 +638,22 @@ export default function HomePage() {
               <h3 className="text-lg font-semibold mb-4">Product</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Features
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Tutorials
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Updates
                   </a>
                 </li>
@@ -664,22 +664,22 @@ export default function HomePage() {
               <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     About
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Careers
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Contact
                   </a>
                 </li>
@@ -690,17 +690,17 @@ export default function HomePage() {
               <h3 className="text-lg font-semibold mb-4">Legal</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Privacy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Terms
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-zinc-400 hover:text-coral-400">
+                  <a href="#" className="text-zinc-400 hover:text-brand-400">
                     Security
                   </a>
                 </li>

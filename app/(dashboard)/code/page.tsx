@@ -236,9 +236,9 @@ export default function CodePage() {
             <CardHeader className=" flex-shrink-0 border-b border-vt-line bg-vt-header">
               <div className="flex justify-between items-center p-0">
                 <div className="flex items-center space-x-2">
-                  <FileCode2 className="h-5 w-5 text-coral-400" />
+                  <FileCode2 className="h-5 w-5 text-brand-400" />
                   <CardTitle className="text-lg font-semibold text-white">
-                    Vision Code
+                    VisionTutor | Programming
                   </CardTitle>
                 </div>
                 <div className="flex gap-2 items-center">
@@ -246,7 +246,7 @@ export default function CodePage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-coral-500 hover:text-white"
+                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-brand-500 hover:text-white"
                   >
                     <Link href="/" className="flex items-center">
                       <span className="text-zinc-300">Back to Home</span>
@@ -256,7 +256,7 @@ export default function CodePage() {
                   <select
                     value={language}
                     onChange={(e) => handleLanguageChange(e.target.value)}
-                    className="border rounded px-2 py-1 text-sm bg-vt-raised border-vt-line-strong text-zinc-300 hover:border-coral-500 focus:border-coral-500 focus:ring-1 focus:ring-coral-500 focus:outline-none"
+                    className="border rounded px-2 py-1 text-sm bg-vt-raised border-vt-line-strong text-zinc-300 hover:border-brand-500 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 focus:outline-none"
                   >
                     <option value="javascript">JavaScript</option>
                     <option value="typescript">TypeScript</option>
@@ -274,7 +274,7 @@ export default function CodePage() {
                     onClick={handleCopyCode}
                     variant="outline"
                     size="sm"
-                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-coral-500 hover:text-white"
+                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-brand-500 hover:text-white"
                   >
                     {copiedToClipboard ? (
                       <Check className="h-4 w-4 mr-1 text-green-400" />
@@ -287,7 +287,7 @@ export default function CodePage() {
                     onClick={handleSaveCode}
                     variant="outline"
                     size="sm"
-                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-coral-500 hover:text-white"
+                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-brand-500 hover:text-white"
                   >
                     <Download className="h-4 w-4 mr-1" />
                     Save
@@ -296,7 +296,7 @@ export default function CodePage() {
                     onClick={handleClearCode}
                     variant="outline"
                     size="sm"
-                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-coral-500 hover:text-white"
+                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-brand-500 hover:text-white"
                   >
                     <Trash2 className="h-4 w-4 mr-1" />
                     Clear
@@ -351,7 +351,7 @@ export default function CodePage() {
               <CardHeader className="py-2 px-3 flex-shrink-0 border-b border-vt-line bg-vt-header">
                 <div className="flex justify-between items-center w-full">
                   <div className="flex items-center space-x-2">
-                    <MessageSquare className="h-5 w-5 text-coral-400" />
+                    <MessageSquare className="h-5 w-5 text-brand-400" />
                     <CardTitle className="text-lg font-semibold text-white">
                       AI Tutor Conversation
                     </CardTitle>
@@ -370,7 +370,7 @@ export default function CodePage() {
                           },
                         ])
                       }
-                      className="border-zinc-600 text-sm text-zinc-200 hover:border-coral-500 hover:bg-vt-raised hover:text-white"
+                      className="border-zinc-600 text-sm text-zinc-200 hover:border-brand-500 hover:bg-vt-raised hover:text-white"
                     >
                       Clear Chat
                     </Button>

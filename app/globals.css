@@ -40,7 +40,7 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* VisionTutor palette: charcoal surfaces with a coral accent */
+  /* VisionTutor palette: charcoal surfaces with a pink accent */
   --color-vt-bg: var(--vt-bg);
   --color-vt-panel: var(--vt-panel);
   --color-vt-header: var(--vt-header);
@@ -48,16 +48,16 @@
   --color-vt-line: var(--vt-line);
   --color-vt-line-strong: var(--vt-line-strong);
   --color-vt-hover: var(--vt-hover);
-  --color-coral-50: #fff3f1;
-  --color-coral-100: #ffe4df;
-  --color-coral-200: #ffccc4;
-  --color-coral-300: #fda99c;
-  --color-coral-400: #fb8b7c;
-  --color-coral-500: #f97362;
-  --color-coral-600: #e5533f;
-  --color-coral-700: #c13f2e;
-  --color-coral-800: #9c3427;
-  --color-coral-900: #7e2f25;
+  --color-brand-50: #fdf2f8;
+  --color-brand-100: #fce7f3;
+  --color-brand-200: #fbcfe8;
+  --color-brand-300: #f9a8d4;
+  --color-brand-400: #f472b6;
+  --color-brand-500: #ec4899;
+  --color-brand-600: #db2777;
+  --color-brand-700: #be185d;
+  --color-brand-800: #9d174d;
+  --color-brand-900: #831843;
 }
 
 :root {
@@ -75,7 +75,7 @@
   --card-foreground: #f4f4f5;
   --popover: var(--vt-panel);
   --popover-foreground: #f4f4f5;
-  --primary: #f97362;
+  --primary: #f472b6;
   --primary-foreground: #18181b;
   --secondary: var(--vt-raised);
   --secondary-foreground: #f4f4f5;
@@ -86,20 +86,20 @@
   --destructive: #ef4444;
   --border: var(--vt-line);
   --input: var(--vt-line-strong);
-  --ring: #f97362;
-  --chart-1: #f97362;
+  --ring: #f472b6;
+  --chart-1: #f472b6;
   --chart-2: #2dd4bf;
   --chart-3: #fbbf24;
   --chart-4: #a1a1aa;
-  --chart-5: #fb8b7c;
+  --chart-5: #f9a8d4;
   --sidebar: var(--vt-panel);
   --sidebar-foreground: #f4f4f5;
-  --sidebar-primary: #f97362;
+  --sidebar-primary: #f472b6;
   --sidebar-primary-foreground: #18181b;
   --sidebar-accent: var(--vt-raised);
   --sidebar-accent-foreground: #f4f4f5;
   --sidebar-border: var(--vt-line);
-  --sidebar-ring: #f97362;
+  --sidebar-ring: #f472b6;
   color-scheme: dark;
 }
 
@@ -137,11 +137,11 @@
     bottom: -2px;
     background: linear-gradient(
       270deg,
-      #f97362,
-      #fbbf24,
-      #fb8b7c,
-      #e5533f,
-      #f97362
+      #f472b6,
+      #c084fc,
+      #f9a8d4,
+      #db2777,
+      #f472b6
     );
     background-size: 300% 300%;
     animation: gradient-border-move 4s linear infinite;
