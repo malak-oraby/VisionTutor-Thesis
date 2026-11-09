@@ -3,19 +3,21 @@
 // V2 in the live app: after each student message, scores the conversation so
 // far, chooses a teaching mode (same rules as the experiment) and produces a
 // note for the voice tutor when the mode changes. Inactive for V0 and V1.
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   chooseMode,
   MODE_INSTRUCTIONS,
   type AdaptationDecision,
   type TutorMode,
 } from "../lib/adaptation";
-import { getTutorVersion } from "../lib/tutorStrategy";
+import { getDefaultTutorVersion, getTutorVersion } from "../lib/tutorStrategy";
 
 type Msg = { role: "human" | "ai"; content: string; timestamp: string };
 
 export function useAdaptiveTutor() {
-  const enabled = getTutorVersion() === "adaptive";
+  // server default first (matches the server render), then the version picked in this browser
+  const [enabled, setEnabled] = useState(getDefaultTutorVersion() === "adaptive");
+  useEffect(() => setEnabled(getTutorVersion() === "adaptive"), []);
   const [mode, setMode] = useState<TutorMode>("standard");
   const [mean, setMean] = useState<number | null>(null);
   const [note, setNote] = useState<{ id: number; text: string } | null>(null);

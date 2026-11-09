@@ -8,6 +8,7 @@ import SessionSummary from "@/app/components/SessionSummary";
 import { useSessionRecorder } from "@/app/hooks/useSessionRecorder";
 import { useAdaptiveTutor } from "@/app/hooks/useAdaptiveTutor";
 import ModeBadge from "@/app/components/ModeBadge";
+import VersionSwitcher from "@/app/components/VersionSwitcher";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Code2, Maximize, Minimize, Brush } from "lucide-react";
@@ -113,6 +114,7 @@ export default function MathPage() {
                   </CardTitle>
                 </div>
                 <div className="flex gap-2 items-center">
+                  <VersionSwitcher disabled={isSessionActive} />
                   <Button
                     variant="outline"
                     size="sm"

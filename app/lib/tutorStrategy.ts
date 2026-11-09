@@ -19,9 +19,29 @@ export function parseTutorVersion(value: string | undefined | null): TutorVersio
   return (TUTOR_VERSIONS as string[]).includes(v) ? (v as TutorVersion) : "baseline";
 }
 
-// Version for the live app, set with NEXT_PUBLIC_TUTOR_VERSION in .env.local.
-export function getTutorVersion(): TutorVersion {
+// Version for the live app: the one picked in the version switcher (saved in
+// this browser), otherwise NEXT_PUBLIC_TUTOR_VERSION from .env.local.
+// The text harness does not use this; it passes each version explicitly.
+const VERSION_STORAGE_KEY = "tutorVersion";
+
+export function getDefaultTutorVersion(): TutorVersion {
   return parseTutorVersion(process.env.NEXT_PUBLIC_TUTOR_VERSION);
+}
+
+export function getTutorVersion(): TutorVersion {
+  if (typeof window !== "undefined") {
+    try {
+      const saved = window.localStorage.getItem(VERSION_STORAGE_KEY);
+      if (saved) return parseTutorVersion(saved);
+    } catch {}
+  }
+  return getDefaultTutorVersion();
+}
+
+export function setTutorVersion(version: TutorVersion) {
+  try {
+    window.localStorage.setItem(VERSION_STORAGE_KEY, version);
+  } catch {}
 }
 
 export const TEACHING_STRATEGY = `You are a patient tutor for math and programming. Your goal is that the student learns to solve the problem themselves, not that they receive the answer.
