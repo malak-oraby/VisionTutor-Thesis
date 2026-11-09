@@ -3,8 +3,8 @@
 //
 //   npm run handcheck -- make --run pilot2 [--student 10 --tutor 10]
 //     Writes results/handcheck/<run>/handcheck.html. Open it in a browser,
-//     label every item, click "Download my labels" (handcheck_labels.json).
-//   npm run handcheck -- score --run pilot2 --labels ~/Downloads/handcheck_labels.json
+//     label every item, click "Download my labels" (handcheck_labels_<run>.json).
+//   npm run handcheck -- score --run pilot2 --labels ~/Downloads/handcheck_labels_pilot2.json
 //     Writes results/handcheck/<run>/agreement.md.
 //
 // Sample: each item is one message from a different session (seed 42),
@@ -92,7 +92,7 @@ function makeItems(run: string, nStudent: number, nTutor: number): Item[] {
   return items;
 }
 
-function page(items: Item[]): string {
+function page(items: Item[], run: string): string {
   // the page only gets what a human labeler needs: no key, no version
   const data = items.map(({ id, role, problem, answer, context }) => ({ id, role, problem, answer, context }));
   return `<!doctype html>
@@ -131,7 +131,7 @@ details{margin:6px 0}
 </main>
 <script>
 const ITEMS = ${JSON.stringify(data)};
-const KEY = "handcheck-labels";
+const KEY = "handcheck-labels-${run}";
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch {}
 const Q = {
@@ -169,7 +169,7 @@ document.getElementById("dl").onclick = () => {
   document.getElementById("msg").textContent = done < ITEMS.length ? "Some items are not finished yet; downloading anyway." : "";
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([JSON.stringify(saved, null, 1)], { type: "application/json" }));
-  a.download = "handcheck_labels.json";
+  a.download = "handcheck_labels_${run}.json";
   a.click();
 };
 progress();
@@ -236,7 +236,7 @@ if (mode === "make") {
   const dir = path.join("results", "handcheck", run);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, "items.json"), JSON.stringify(items, null, 1));
-  fs.writeFileSync(path.join(dir, "handcheck.html"), page(items));
+  fs.writeFileSync(path.join(dir, "handcheck.html"), page(items, run));
   console.log(`${items.length} items (${items.filter((i) => i.role === "student").length} student, ${items.filter((i) => i.role === "tutor").length} tutor) from run "${run}".`);
   console.log(`Open ${path.join(dir, "handcheck.html")} in your browser.`);
 } else if (mode === "score") {
