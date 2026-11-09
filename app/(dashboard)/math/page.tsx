@@ -95,7 +95,7 @@ export default function MathPage() {
   };
 
   return (
-    <div className="h-[100vh] flex flex-col bg-[#000000] text-gray-200">
+    <div className="h-[100vh] flex flex-col bg-vt-bg text-zinc-200">
       <div className="flex-grow flex flex-col md:flex-row gap-3 pt-2 px-3 pb-3 h-[calc(100vh-180px)] overflow-hidden">
         <div
           className={`${
@@ -104,11 +104,11 @@ export default function MathPage() {
               : "w-full md:w-[70%]"
           } h-full flex flex-col transition-all duration-300 ease-in-out gap-2`}
         >
-          <Card className="flex-grow bg-[#0d0d1a] border-[#1e1e2e] shadow-lg flex flex-col overflow-hidden relative">
-            <CardHeader className=" flex-shrink-0 border-b border-[#1e1e2e] bg-[#0f0f1d]">
+          <Card className="flex-grow bg-vt-panel border-vt-line shadow-lg flex flex-col overflow-hidden relative">
+            <CardHeader className=" flex-shrink-0 border-b border-vt-line bg-vt-header">
               <div className="flex justify-between items-center p-0">
                 <div className="flex items-center space-x-2">
-                  <Brush className="h-5 w-5 text-blue-400" />
+                  <Brush className="h-5 w-5 text-coral-400" />
                   <CardTitle className="text-lg font-semibold text-white">
                     Vision Math
                   </CardTitle>
@@ -118,10 +118,10 @@ export default function MathPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="flex items-center bg-[#1a1a2e] border-[#2e2e3e] text-gray-300 hover:bg-[#2a2a3a] hover:border-purple-500 hover:text-white"
+                    className="flex items-center bg-vt-raised border-vt-line-strong text-zinc-300 hover:bg-vt-hover hover:border-coral-500 hover:text-white"
                   >
                     <Link href="/" className="flex items-center">
-                      <span className="text-gray-300">Back to Home</span>
+                      <span className="text-zinc-300">Back to Home</span>
                       <Code2 className="h-4 w-4 ml-1" />
                     </Link>
                   </Button>
@@ -129,7 +129,7 @@ export default function MathPage() {
                     variant="ghost"
                     size="sm"
                     onClick={toggleFullscreen}
-                    className="text-gray-400 hover:text-white hover:bg-[#2a2a3a]"
+                    className="text-zinc-400 hover:text-white hover:bg-vt-hover"
                   >
                     {isFullscreenCanvas ? (
                       <Minimize className="h-4 w-4" />
@@ -168,11 +168,11 @@ export default function MathPage() {
               showMobileChat ? "block" : "hidden md:block"
             } w-full md:w-[30%] h-full transition-all duration-300 ease-in-out`}
           >
-            <Card className="h-full bg-[#0d0d1a] border-[#1e1e2e] shadow-lg flex flex-col overflow-hidden">
-              <CardHeader className="py-2 px-3 flex-shrink-0 border-b border-[#1e1e2e] bg-[#0f0f1d]">
+            <Card className="h-full bg-vt-panel border-vt-line shadow-lg flex flex-col overflow-hidden">
+              <CardHeader className="py-2 px-3 flex-shrink-0 border-b border-vt-line bg-vt-header">
                 <div className="flex justify-between items-center w-full">
                   <div className="flex items-center space-x-2">
-                    <MessageSquare className="h-5 w-5 text-purple-400" />
+                    <MessageSquare className="h-5 w-5 text-coral-400" />
                     <CardTitle className="text-lg font-semibold text-white">
                       AI Tutor Conversation
                     </CardTitle>
@@ -191,7 +191,7 @@ export default function MathPage() {
                           },
                         ])
                       }
-                      className="border-gray-600 text-sm text-black hover:border-purple-500 hover:bg-[#1a1a2e] hover:text-white"
+                      className="border-zinc-600 text-sm text-zinc-200 hover:border-coral-500 hover:bg-vt-raised hover:text-white"
                     >
                       Clear Chat
                     </Button>
@@ -200,7 +200,7 @@ export default function MathPage() {
                         variant="ghost"
                         size="sm"
                         onClick={() => setShowMobileChat(false)}
-                        className="text-gray-400 hover:text-white hover:bg-[#2a2a3a]"
+                        className="text-zinc-400 hover:text-white hover:bg-vt-hover"
                       >
                         <Code2 className="h-4 w-4" />
                       </Button>

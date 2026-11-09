@@ -140,12 +140,12 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#040922] text-white">
+    <div className="min-h-screen bg-vt-bg text-white">
       {/* Navigation */}
       <header
         className={`fixed w-full z-50 transition-all duration-500 ${
           isScrolled
-            ? "py-2 bg-gray-800/80 backdrop-blur-md mx-auto px-4 rounded-full max-w-5xl left-1/2 -translate-x-1/2 shadow-lg mt-2 border border-gray-700/30"
+            ? "py-2 bg-zinc-800/80 backdrop-blur-md mx-auto px-4 rounded-full max-w-5xl left-1/2 -translate-x-1/2 shadow-lg mt-2 border border-zinc-700/30"
             : "py-4 bg-transparent w-full"
         }`}
       >
@@ -164,19 +164,19 @@ export default function HomePage() {
             <div className="hidden md:flex items-center justify-center absolute left-1/2 transform -translate-x-1/2 space-x-10">
               <a
                 href="#home"
-                className="text-white hover:text-blue-400 transition text-lg font-medium"
+                className="text-white hover:text-coral-400 transition text-lg font-medium"
               >
                 Home
               </a>
               <a
                 href="#use-case"
-                className="text-white hover:text-blue-400 transition text-lg font-medium"
+                className="text-white hover:text-coral-400 transition text-lg font-medium"
               >
                 Use Cases
               </a>
               <a
                 href="#about"
-                className="text-white hover:text-blue-400 transition text-lg font-medium"
+                className="text-white hover:text-coral-400 transition text-lg font-medium"
               >
                 About
               </a>
@@ -185,14 +185,14 @@ export default function HomePage() {
             {/* Right Side - Auth Buttons */}
             <div className="hidden md:flex items-center space-x-4">
               {loading ? (
-                <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-8 h-8 border-2 border-coral-500 border-t-transparent rounded-full animate-spin"></div>
               ) : isLoggedIn ? (
                 <div className="relative">
                   <button
                     onClick={toggleProfile}
                     className="flex items-center space-x-2 focus:outline-none"
                   >
-                    <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-coral-500 flex items-center justify-center">
                       <span className="text-white font-semibold">
                         {getUserInitials()}
                       </span>
@@ -201,25 +201,25 @@ export default function HomePage() {
                   </button>
 
                   {isProfileOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-10 border border-gray-700/50">
-                      <div className="px-4 py-2 border-b border-gray-700">
+                    <div className="absolute right-0 mt-2 w-48 bg-zinc-800 rounded-md shadow-lg py-1 z-10 border border-zinc-700/50">
+                      <div className="px-4 py-2 border-b border-zinc-700">
                         <p className="text-sm font-medium text-white">
                           {user?.name || "User"}
                         </p>
-                        <p className="text-xs text-gray-400 truncate">
+                        <p className="text-xs text-zinc-400 truncate">
                           {user?.email || ""}
                         </p>
                       </div>
                       <Link
                         href="/dashboard"
-                        className="block px-4 py-2 text-sm text-white hover:bg-gray-700 flex items-center"
+                        className="block px-4 py-2 text-sm text-white hover:bg-zinc-700 flex items-center"
                       >
                         <User size={16} className="mr-2" />
                         Dashboard
                       </Link>
                       <button
                         onClick={handleLogout}
-                        className="w-full text-left block px-4 py-2 text-sm text-white hover:bg-gray-700 flex items-center"
+                        className="w-full text-left block px-4 py-2 text-sm text-white hover:bg-zinc-700 flex items-center"
                       >
                         <LogOut size={16} className="mr-2" />
                         Logout
@@ -231,7 +231,7 @@ export default function HomePage() {
                 <div className="flex space-x-4">
                   <button
                     onClick={handleLogin}
-                    className="px-6 py-2 rounded-full text-white hover:text-blue-300 transition text-lg font-medium"
+                    className="px-6 py-2 rounded-full text-white hover:text-coral-300 transition text-lg font-medium"
                   >
                     Log In
                   </button>
@@ -259,61 +259,61 @@ export default function HomePage() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-gray-800/90 backdrop-blur-md mt-4 rounded-lg shadow-lg p-4 border border-gray-700/30">
+          <div className="md:hidden bg-zinc-800/90 backdrop-blur-md mt-4 rounded-lg shadow-lg p-4 border border-zinc-700/30">
             <div className="flex flex-col space-y-4">
               <a
                 href="#home"
-                className="text-white hover:text-blue-400 transition py-2 text-lg"
+                className="text-white hover:text-coral-400 transition py-2 text-lg"
               >
                 Home
               </a>
               <a
                 href="#use-case"
-                className="text-white hover:text-blue-400 transition py-2 text-lg"
+                className="text-white hover:text-coral-400 transition py-2 text-lg"
               >
                 Use Cases
               </a>
               <a
                 href="#about"
-                className="text-white hover:text-blue-400 transition py-2 text-lg"
+                className="text-white hover:text-coral-400 transition py-2 text-lg"
               >
                 About
               </a>
 
               {loading ? (
-                <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin self-center my-2"></div>
+                <div className="w-6 h-6 border-2 border-coral-500 border-t-transparent rounded-full animate-spin self-center my-2"></div>
               ) : isLoggedIn ? (
                 <>
                   {user && (
-                    <div className="py-2 border-t border-gray-700 mt-2">
+                    <div className="py-2 border-t border-zinc-700 mt-2">
                       <p className="text-sm font-medium text-white">
                         {user.name || "User"}
                       </p>
-                      <p className="text-xs text-gray-400 truncate">
+                      <p className="text-xs text-zinc-400 truncate">
                         {user.email || ""}
                       </p>
                     </div>
                   )}
                   <Link
                     href="/dashboard"
-                    className="text-white hover:text-blue-400 transition py-2 flex items-center text-lg"
+                    className="text-white hover:text-coral-400 transition py-2 flex items-center text-lg"
                   >
                     <User size={18} className="mr-2" />
                     Dashboard
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="text-left text-white hover:text-blue-400 transition py-2 flex items-center text-lg"
+                    className="text-left text-white hover:text-coral-400 transition py-2 flex items-center text-lg"
                   >
                     <LogOut size={18} className="mr-2" />
                     Logout
                   </button>
                 </>
               ) : (
-                <div className="flex flex-col space-y-3 border-t border-gray-700 pt-4 mt-2">
+                <div className="flex flex-col space-y-3 border-t border-zinc-700 pt-4 mt-2">
                   <button
                     onClick={handleLogin}
-                    className="px-6 py-2 text-white hover:text-blue-300 transition text-lg font-medium"
+                    className="px-6 py-2 text-white hover:text-coral-300 transition text-lg font-medium"
                   >
                     Log In
                   </button>
@@ -336,7 +336,7 @@ export default function HomePage() {
             <span>{error}</span>
             <button
               onClick={() => setError(null)}
-              className="ml-2 text-white hover:text-gray-200"
+              className="ml-2 text-white hover:text-zinc-200"
             >
               <X size={16} />
             </button>
@@ -352,7 +352,7 @@ export default function HomePage() {
             autoPlay
             loop
             muted
-            className="w-full h-full object-cover z-0 "
+            className="w-full h-full object-cover z-0 grayscale opacity-70"
           >
             <source src="/hero.webm" type="video/webm" />
             Your browser does not support the video tag.
@@ -360,7 +360,7 @@ export default function HomePage() {
         </div>
 
         {/* Darker overlay gradient with shadow effect */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-purple-900/50 z-10 shadow-inner"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-coral-900/50 to-coral-900/50 z-10 shadow-inner"></div>
 
         {/* Corner shadows */}
         <div className="absolute inset-0 shadow-[inset_0_0_150px_100px_rgba(0,0,0,0.7)] z-10"></div>
@@ -369,8 +369,8 @@ export default function HomePage() {
         <div className="container mx-auto px-4 relative z-20">
           <div className="max-w-4xl mx-auto text-center">
             {/* Funding badge */}
-            <div className="inline-block px-4 py-2 bg-blue-900/50 rounded-full mb-6 backdrop-blur-sm border border-blue-700/30">
-              <p className="text-blue-300 font-medium">Levelling up</p>
+            <div className="inline-block px-4 py-2 bg-coral-900/50 rounded-full mb-6 backdrop-blur-sm border border-coral-700/30">
+              <p className="text-coral-300 font-medium">Levelling up</p>
             </div>
 
             {/* Main heading with animated text - increased font size */}
@@ -387,7 +387,7 @@ export default function HomePage() {
 
               <span className="relative inline-block">
                 <span
-                  className="inline-block font-bold bg-clip-text text-transparent bg-gradient-to-t from-gray-300 to-white pb-3"
+                  className="inline-block font-bold bg-clip-text text-transparent bg-gradient-to-t from-zinc-300 to-white pb-3"
                   style={{
                     whiteSpace: "nowrap",
                     transition: "opacity 1s ease, filter 1s ease",
@@ -401,7 +401,7 @@ export default function HomePage() {
             </h1>
 
             {/* Subtitle - formatted to two lines with max width */}
-            <p className="text-xl md:text-2xl text-gray-300 mb-10 mx-auto leading-normal">
+            <p className="text-xl md:text-2xl text-zinc-300 mb-10 mx-auto leading-normal">
               VisionTutor is an intelligent learning assistant that helps you
               <br />
               master coding and math with personalized, interactive guidance.
@@ -439,14 +439,14 @@ export default function HomePage() {
       {/* Features Section */}
       <section
         id="use-case"
-        className="py-24 bg-gradient-to-br from-[#0b0a1f] to-[#0a0a25] text-white relative overflow-hidden"
+        className="py-24 bg-gradient-to-br from-vt-bg to-vt-panel text-white relative overflow-hidden"
       >
         <div className="container mx-auto px-4">
           <div className="text-center mb-20">
             <h2 className="text-5xl font-bold tracking-tight mb-6 text-white text-transparent bg-clip-text">
               Supercharge Your Learning
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xl text-zinc-300 max-w-2xl mx-auto">
               Our AI-powered tools adapt to your learning style and needs,
               providing personalized assistance in both coding and mathematics.
             </p>
@@ -460,8 +460,8 @@ export default function HomePage() {
                 description:
                   "Get real-time assistance as you code with intelligent suggestions, error detection, and guided learning paths tailored to your skill level.",
                 image: "/codeeditor.png",
-                iconColor: "text-blue-400",
-                bgColor: "bg-blue-600/20",
+                iconColor: "text-coral-400",
+                bgColor: "bg-coral-600/20",
                 link: "/code",
                 linkText: "Try Code Editor",
               },
@@ -470,15 +470,15 @@ export default function HomePage() {
                 description:
                   "Solve complex mathematical problems with our AI-powered canvas that recognizes handwritten equations and provides step-by-step solutions.",
                 image: "/canvas.png",
-                iconColor: "text-purple-400",
-                bgColor: "bg-purple-600/20",
+                iconColor: "text-coral-400",
+                bgColor: "bg-coral-600/20",
                 link: "/math",
                 linkText: "Try Math Canvas",
               },
             ].map((feature, idx) => (
               <div
                 key={idx}
-                className="group bg-gradient-to-br from-[#111] to-[#1a1a2f] rounded-3xl p-8 border border-gray-800 shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-transform transform hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
+                className="group bg-gradient-to-br from-vt-bg to-vt-raised rounded-3xl p-8 border border-zinc-800 shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-transform transform hover:-translate-y-2 hover:shadow-[0_15px_40px_rgba(0,0,0,0.6)]"
               >
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
                   <div className={`${feature.bgColor} rounded-full p-4`}>
@@ -510,7 +510,7 @@ export default function HomePage() {
                     <h3 className="text-3xl font-semibold mb-3">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-400 mb-6 leading-relaxed">
+                    <p className="text-zinc-400 mb-6 leading-relaxed">
                       {feature.description}
                     </p>
                     <div className="rounded-3xl overflow-hidden border border-white/10 shadow-inner">
@@ -553,14 +553,14 @@ export default function HomePage() {
       {/* CTA Section */}
       <section
         id="about"
-        className="py-20 bg-gradient-to-br from-[#0b0a1f] to-[#0a0a25] relative"
+        className="py-20 bg-gradient-to-br from-vt-bg to-vt-panel relative"
       >
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl font-bold mb-6">
               Ready to Transform Your Learning Experience?
             </h2>
-            <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-zinc-300 mb-10 max-w-2xl mx-auto">
               Join thousands of students and professionals using VisionTutor to
               accelerate their learning journey.
             </p>
@@ -581,19 +581,19 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 pt-16 pb-8 border-t border-gray-800">
+      <footer className="bg-zinc-900 pt-16 pb-8 border-t border-zinc-800">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-5 gap-8 mb-16">
             <div className="md:col-span-2">
-              <div className="text-3xl font-bold text-blue-400 mb-4">
+              <div className="text-3xl font-bold text-coral-400 mb-4">
                 VisionTutor
               </div>
-              <p className="text-gray-400 mb-6 max-w-md">
+              <p className="text-zinc-400 mb-6 max-w-md">
                 An AI-powered learning platform that adapts to your learning
                 style and helps you master coding and mathematics.
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-blue-400">
+                <a href="#" className="text-zinc-400 hover:text-coral-400">
                   <svg
                     className="w-6 h-6"
                     fill="currentColor"
@@ -607,7 +607,7 @@ export default function HomePage() {
                     />
                   </svg>
                 </a>
-                <a href="#" className="text-gray-400 hover:text-blue-400">
+                <a href="#" className="text-zinc-400 hover:text-coral-400">
                   <svg
                     className="w-6 h-6"
                     fill="currentColor"
@@ -617,7 +617,7 @@ export default function HomePage() {
                     <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
                   </svg>
                 </a>
-                <a href="#" className="text-gray-400 hover:text-blue-400">
+                <a href="#" className="text-zinc-400 hover:text-coral-400">
                   <svg
                     className="w-6 h-6"
                     fill="currentColor"
@@ -638,22 +638,22 @@ export default function HomePage() {
               <h3 className="text-lg font-semibold mb-4">Product</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Features
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Tutorials
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Updates
                   </a>
                 </li>
@@ -664,22 +664,22 @@ export default function HomePage() {
               <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     About
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Careers
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Blog
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Contact
                   </a>
                 </li>
@@ -690,17 +690,17 @@ export default function HomePage() {
               <h3 className="text-lg font-semibold mb-4">Legal</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Privacy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Terms
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                  <a href="#" className="text-zinc-400 hover:text-coral-400">
                     Security
                   </a>
                 </li>
@@ -708,8 +708,8 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="border-t border-gray-800 pt-8">
-            <p className="text-gray-500 text-center">
+          <div className="border-t border-zinc-800 pt-8">
+            <p className="text-zinc-500 text-center">
               © {new Date().getFullYear()} VisionTutor. All rights reserved.
             </p>
           </div>

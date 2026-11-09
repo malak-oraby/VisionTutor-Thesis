@@ -32,7 +32,7 @@ export default function VersionSwitcher({ disabled }: { disabled?: boolean }) {
         setTutorVersion(parseTutorVersion(e.target.value));
         window.location.reload();
       }}
-      className="border rounded px-2 py-1 text-sm bg-[#1a1a2e] border-[#2e2e3e] text-gray-300 hover:border-purple-500 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none disabled:opacity-50"
+      className="border rounded px-2 py-1 text-sm bg-vt-raised border-vt-line-strong text-zinc-300 hover:border-coral-500 focus:border-coral-500 focus:ring-1 focus:ring-coral-500 focus:outline-none disabled:opacity-50"
     >
       {(Object.keys(LABELS) as TutorVersion[]).map((v) => (
         <option key={v} value={v}>

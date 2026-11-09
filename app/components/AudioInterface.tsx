@@ -329,14 +329,14 @@ export default function AudioInterface({
   };
 
   return (
-    <Card className="gradient-border bg-[#0d0d1a] shadow-sm  rounded-full w-full h-18 flex justify-center align-middle">
+    <Card className="gradient-border bg-vt-panel shadow-sm  rounded-full w-full h-18 flex justify-center align-middle">
       <CardContent>
         <div className="flex items-center space-x-6 justify-between mb-1">
           <div>
-            <h3 className="font-medium text-gray-100">
+            <h3 className="font-medium text-zinc-100">
               AI Tutor {isModelSpeaking ? "Speaking" : "Listening"}
             </h3>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-zinc-500">
               {isSessionActive
                 ? connectionStatus === "connected"
                   ? "Connected to Gemini"
@@ -385,9 +385,9 @@ export default function AudioInterface({
         </div>
 
         {isSessionActive && (
-          <div className="w-full h-1 rounded-full bg-gray-200">
+          <div className="w-full h-1 rounded-full bg-zinc-200">
             <div
-              className="h-full rounded-full transition-all bg-blue-500 "
+              className="h-full rounded-full transition-all bg-coral-500 "
               style={{
                 width: `${
                   isModelSpeaking

@@ -51,15 +51,15 @@ export default function ConversationLog({ messages }: ConversationLogProps) {
               </Avatar>
               <div className="flex-1 space-y-2">
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-medium text-gray-200">
+                  <p className="text-sm font-medium text-zinc-200">
                     {message.role === "ai" ? "VisionTutor" : "You"}
                   </p>
                 </div>
                 <div
-                  className={`rounded-sm px-3 py-2 text-sm ${
+                  className={`rounded-lg px-3 py-2 text-sm ${
                     message.role === "ai"
-                      ? "bg-white border border-zinc-200 text-zinc-800"
-                      : "bg-zinc-100 text-zinc-800"
+                      ? "bg-vt-raised border-l-2 border-coral-500 text-zinc-100"
+                      : "bg-coral-500/15 border border-coral-500/30 text-zinc-100"
                   }`}
                 >
                   {message.content}

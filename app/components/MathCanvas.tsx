@@ -296,7 +296,7 @@ const MathCanvas = forwardRef<MathCanvasRef, MathCanvasProps>(
     return (
       <div className={`flex flex-col ${className}`}>
         {/* Toolbar */}
-        <div className="flex justify-between items-center p-3 border-b bg-gray-50">
+        <div className="flex justify-between items-center p-3 border-b bg-zinc-50">
           <div className="flex items-center gap-3">
             <Button
               size="default"
@@ -312,7 +312,7 @@ const MathCanvas = forwardRef<MathCanvasRef, MathCanvasProps>(
 
             <div className="relative">
               <div
-                className="w-10 h-10 rounded-full border border-gray-300 cursor-pointer overflow-hidden"
+                className="w-10 h-10 rounded-full border border-zinc-300 cursor-pointer overflow-hidden"
                 style={{ backgroundColor: color }}
                 onClick={() => document.getElementById("colorPicker")?.click()}
                 title="Select color"
@@ -337,7 +337,7 @@ const MathCanvas = forwardRef<MathCanvasRef, MathCanvasProps>(
 
             {mode === "eraser" && (
               <div className="flex items-center gap-2">
-                <span className="text-xs font-medium text-gray-500">Size:</span>
+                <span className="text-xs font-medium text-zinc-500">Size:</span>
                 <input
                   type="range"
                   min={5}
@@ -415,7 +415,7 @@ const MathCanvas = forwardRef<MathCanvasRef, MathCanvasProps>(
             onTouchStart={startDrawing}
             onTouchMove={draw}
             onTouchEnd={finishDrawing}
-            className="w-full h-full border border-gray-200 rounded-md bg-white touch-none"
+            className="w-full h-full border border-zinc-200 rounded-md bg-white touch-none"
           />
         </div>
       </div>
