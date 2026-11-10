@@ -10,7 +10,8 @@
     "harness": "tsx scripts/harness/run.ts",
     "judge": "tsx scripts/harness/judge.ts",
     "analyze": "tsx scripts/harness/analyze.ts",
-    "handcheck": "tsx scripts/harness/handcheck.ts"
+    "handcheck": "tsx scripts/harness/handcheck.ts",
+    "charts": "tsx scripts/harness/charts.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
