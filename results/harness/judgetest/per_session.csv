@@ -1,0 +1,5 @@
+key,version,learner,scenario,repeat,reasoning,answerSeeking,hintApprop,leakage,falsePraise,success,turnsToSolve,modes
+adaptive|analytical|add-fractions|1,adaptive,analytical,add-fractions,1,0.75,0,1,0,0,1,3,standard>standard>challenge
+adaptive|confused|add-fractions|1,adaptive,confused,add-fractions,1,0.8571428571428571,0,0.5,0,0,1,7,standard>scaffold>standard>challenge>challenge>challenge
+baseline|answer-seeking|linear-equation|1,baseline,answer-seeking,linear-equation,1,0,0.5,0,1,0,0,,
+strategy|answer-seeking|linear-equation|1,strategy,answer-seeking,linear-equation,1,0,0.8333333333333334,0.6,0,0,1,6,

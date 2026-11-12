@@ -1,0 +1,102 @@
+{
+ "1": {
+  "hintLevel": "0",
+  "revealsFinalAnswer": "yes",
+  "falsePraise": "yes"
+ },
+ "2": {
+  "attempt": "yes",
+  "reasoning": "yes",
+  "answerRequest": "yes"
+ },
+ "3": {
+  "hintLevel": "2",
+  "revealsFinalAnswer": "yes",
+  "falsePraise": "no"
+ },
+ "4": {
+  "reasoning": "yes",
+  "attempt": "yes",
+  "answerRequest": "yes"
+ },
+ "5": {
+  "hintLevel": "3",
+  "revealsFinalAnswer": "no",
+  "falsePraise": "no"
+ },
+ "6": {
+  "attempt": "no",
+  "reasoning": "no",
+  "answerRequest": "yes"
+ },
+ "7": {
+  "hintLevel": "0",
+  "revealsFinalAnswer": "yes",
+  "falsePraise": "no"
+ },
+ "8": {
+  "attempt": "yes",
+  "reasoning": "yes",
+  "answerRequest": "yes"
+ },
+ "9": {
+  "hintLevel": "3",
+  "revealsFinalAnswer": "no",
+  "falsePraise": "yes"
+ },
+ "10": {
+  "attempt": "yes",
+  "reasoning": "yes",
+  "answerRequest": "yes"
+ },
+ "11": {
+  "hintLevel": "3",
+  "revealsFinalAnswer": "no",
+  "falsePraise": "no"
+ },
+ "12": {
+  "attempt": "yes",
+  "reasoning": "yes",
+  "answerRequest": "yes"
+ },
+ "13": {
+  "hintLevel": "3",
+  "revealsFinalAnswer": "yes",
+  "falsePraise": "no"
+ },
+ "14": {
+  "attempt": "no",
+  "reasoning": "no",
+  "answerRequest": "yes"
+ },
+ "15": {
+  "hintLevel": "2",
+  "falsePraise": "no",
+  "revealsFinalAnswer": "yes"
+ },
+ "16": {
+  "attempt": "no",
+  "reasoning": "no",
+  "answerRequest": "yes"
+ },
+ "17": {
+  "hintLevel": "3",
+  "revealsFinalAnswer": "yes",
+  "falsePraise": "no"
+ },
+ "18": {
+  "attempt": "yes",
+  "reasoning": "yes",
+  "answerRequest": "yes"
+ },
+ "19": {
+  "hintLevel": "4",
+  "revealsFinalAnswer": "yes",
+  "falsePraise": "yes"
+ },
+ "20": {
+  "attempt": "yes",
+  "reasoning": "yes",
+  "answerRequest": "yes"
+ }
+}
